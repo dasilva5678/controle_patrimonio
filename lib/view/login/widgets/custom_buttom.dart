@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class CustomButtom extends StatelessWidget {
@@ -6,22 +7,22 @@ class CustomButtom extends StatelessWidget {
   final Size? maximumSize;
   final bool enabled;
   final Size? minimumSize;
-  final Color? backgroundColor;
+  final Gradient? backgroundGradient;
   final Color? borderColor;
   final TextStyle? style;
   final double borderRadius;
   CustomButtom({
-    super.key,
+    Key? key,
     required this.title,
     required this.onPressed,
     required this.maximumSize,
-    required this.minimumSize,
     this.enabled = true,
-    this.backgroundColor,
+    required this.minimumSize,
+    this.backgroundGradient,
     this.borderColor,
     this.style,
     this.borderRadius = 3,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,21 +33,30 @@ class CustomButtom extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           maximumSize: maximumSize,
           minimumSize: minimumSize,
-          side: BorderSide(
-            width: 1.0,
-            color: borderColor ?? Colors.transparent,
-          ),
           elevation: 0,
-          animationDuration: Duration(seconds: 10),
-          backgroundColor: backgroundColor,
+          animationDuration: const Duration(seconds: 10),
           shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(40),
+          ),
+          padding: EdgeInsets.zero,
+          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          textStyle: style,
+        ),
+        child: Ink(
+          decoration: BoxDecoration(
+            gradient: backgroundGradient,
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-        ),
-        child: FittedBox(
-          child: Text(
-            title,
-            style: style,
+          child: Container(
+            constraints: BoxConstraints(
+              minWidth: minimumSize?.width ?? 88,
+              minHeight: minimumSize?.height ?? 36,
+            ),
+            alignment: Alignment.center,
+            child: Text(
+              title,
+              style: style,
+            ),
           ),
         ),
       ),

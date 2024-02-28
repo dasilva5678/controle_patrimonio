@@ -3,9 +3,13 @@ import 'package:flutter/material.dart';
 
 class BackgroundColorGradient extends StatefulWidget {
   final List<Widget> children;
+  final Widget? child;
+  final Widget? header;
   const BackgroundColorGradient({
     Key? key,
     required this.children,
+    this.child,
+    this.header,
   }) : super(key: key);
 
   @override
@@ -17,21 +21,29 @@ class _BackgroundColorGradientState extends State<BackgroundColorGradient> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            const Color.fromARGB(255, 76, 133, 180),
-            Colors.blue.shade900,
+            Color.fromARGB(255, 99, 198, 231),
+            Color(0xFF008080),
           ],
+          stops: [0.0, 0.7],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          stops: const [0.2, 0.8],
         ),
       ),
-      child: Center(
-        child: Stack(
-          children: widget.children,
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          if (widget.header != null) widget.header!,
+          Center(
+            child: Stack(
+              children: widget.children,
+            ),
+          ),
+          if (widget.child != null) widget.child!,
+        ],
       ),
     );
   }
