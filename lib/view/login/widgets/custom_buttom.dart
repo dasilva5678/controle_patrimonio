@@ -1,4 +1,3 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 
 class CustomButtom extends StatelessWidget {
@@ -7,22 +6,22 @@ class CustomButtom extends StatelessWidget {
   final Size? maximumSize;
   final bool enabled;
   final Size? minimumSize;
-  final Gradient? backgroundGradient;
+  final Color? backgroundColor;
   final Color? borderColor;
   final TextStyle? style;
   final double borderRadius;
   CustomButtom({
-    Key? key,
+    super.key,
     required this.title,
     required this.onPressed,
     required this.maximumSize,
-    this.enabled = true,
     required this.minimumSize,
-    this.backgroundGradient,
+    this.enabled = true,
+    this.backgroundColor,
     this.borderColor,
     this.style,
     this.borderRadius = 3,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,30 +32,21 @@ class CustomButtom extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           maximumSize: maximumSize,
           minimumSize: minimumSize,
-          elevation: 0,
-          animationDuration: const Duration(seconds: 10),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(40),
+          side: BorderSide(
+            width: 1.0,
+            color: borderColor ?? Colors.transparent,
           ),
-          padding: EdgeInsets.zero,
-          tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          textStyle: style,
-        ),
-        child: Ink(
-          decoration: BoxDecoration(
-            gradient: backgroundGradient,
+          elevation: 0,
+          animationDuration: Duration(seconds: 10),
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(borderRadius),
           ),
-          child: Container(
-            constraints: BoxConstraints(
-              minWidth: minimumSize?.width ?? 88,
-              minHeight: minimumSize?.height ?? 36,
-            ),
-            alignment: Alignment.center,
-            child: Text(
-              title,
-              style: style,
-            ),
+        ),
+        child: FittedBox(
+          child: Text(
+            title,
+            style: style,
           ),
         ),
       ),
