@@ -26,7 +26,9 @@ class HomeView extends StatelessWidget {
               color: Colors.blueGrey,
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(
+            height: 20,
+          ),
           Row(
             children: [
               Expanded(
